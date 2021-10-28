@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Login from "./modules/signin/index";
+import Register from "./modules/signup";
+import PrivateLayout from "./commons/priviteLayout/index";
+
+import {
+  BrowserRouter as Router,
+  Route,
+} from "react-router-dom";
+import {Switch } from "react-router";
 
 function App() {
+  const [users, setUser] = useState({ name: "", email: "" });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Router>
+        <Switch>
+          <Route path="/login">
+            <Login users={users} setUser={setUser} />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <PrivateLayout users={users} />
+        </Switch>
+      </Router>
     </div>
   );
 }
